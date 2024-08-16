@@ -1,23 +1,30 @@
-document.getElementById("swap-button").addEventListener("click", function () {
-  const currency1 = document.getElementById("currency1");
-  const currency2 = document.getElementById("currency2");
+document.querySelector(".swap-button").addEventListener("click", function () {
+  const currency1 = document.querySelector(
+    '.currency-select[name="currency1"]'
+  );
+  const currency2 = document.querySelector(
+    '.currency-select[name="currency2"]'
+  );
 
-  // Swap the values of the two currency selectors
   const temp = currency1.value;
   currency1.value = currency2.value;
   currency2.value = temp;
 });
 
 document
-  .getElementById("currency-form")
+  .querySelector(".currency-form")
   .addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const loader = document.getElementById("loader");
-    const resultDiv = document.getElementById("result");
-    const currency1 = document.getElementById("currency1").value;
-    const currency2 = document.getElementById("currency2").value;
-    const amount = parseFloat(document.getElementById("amount").value);
+    const loader = document.querySelector(".loader");
+    const resultDiv = document.querySelector(".result");
+    const currency1 = document.querySelector(
+      '.currency-select[name="currency1"]'
+    ).value;
+    const currency2 = document.querySelector(
+      '.currency-select[name="currency2"]'
+    ).value;
+    const amount = parseFloat(document.querySelector(".amount-input").value);
 
     loader.style.display = "block";
     resultDiv.innerHTML = "";

@@ -10,14 +10,14 @@
     <div class="container">
       <header>
         <img src="logo.png" alt="Currency Converter Logo" class="logo" />
-        <h1>Currency Converter</h1>
+        <h1 class="title">Currency Converter</h1>
       </header>
 
       <div class="converter">
-        <form id="currency-form">
+        <form class="currency-form">
           <div class="currency-row">
-            <label for="currency1">Z:</label>
-            <select id="currency1" name="currency1">
+            <label for="currency1" class="label">Z:</label>
+            <select class="currency-select" name="currency1">
               <option value="eur">Euro (EUR)</option>
               <option value="usd">Dolar amerykański (USD)</option>
               <option value="chf">Frank szwajcarski (CHF)</option>
@@ -25,11 +25,11 @@
             </select>
           </div>
 
-          <button type="button" id="swap-button">&#x21C4;</button>
+          <button type="button" class="swap-button">&#x21C4;</button>
 
           <div class="currency-row">
-            <label for="currency2">Na:</label>
-            <select id="currency2" name="currency2">
+            <label for="currency2" class="label">Na:</label>
+            <select class="currency-select" name="currency2">
               <option value="pln">Złoty (PLN)</option>
               <option value="eur">Euro (EUR)</option>
               <option value="usd">Dolar amerykański (USD)</option>
@@ -38,15 +38,15 @@
           </div>
 
           <div class="amount-row">
-            <label for="amount">Kwota:</label>
-            <input type="number" id="amount" name="amount" required />
+            <label for="amount" class="label">Kwota:</label>
+            <input type="number" class="amount-input" name="amount" required />
           </div>
 
           <button type="submit" class="convert-button">Przelicz</button>
         </form>
 
-        <div class="loader" id="loader"></div>
-        <div id="result"></div>
+        <div class="loader"></div>
+        <div class="result"></div>
       </div>
     </div>
 

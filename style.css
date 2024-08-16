@@ -32,7 +32,7 @@ header {
   margin-bottom: 10px;
 }
 
-h1 {
+.title {
   font-size: 1.8em;
   margin: 0;
   color: #aa4442;
@@ -52,14 +52,14 @@ h1 {
   margin: 15px 0;
 }
 
-label {
+.label {
   flex: 1;
   text-align: left;
   font-weight: 500;
 }
 
-select,
-input {
+.currency-select,
+.amount-input {
   flex: 2;
   padding: 10px;
   border-radius: 5px;
@@ -68,7 +68,8 @@ input {
   color: #f1f1f1;
 }
 
-button {
+.convert-button,
+.swap-button {
   background-color: #aa4442;
   color: white;
   border: none;
@@ -79,11 +80,12 @@ button {
   transition: background-color 0.3s ease;
 }
 
-button:hover {
+.convert-button:hover,
+.swap-button:hover {
   background-color: #21a1f1;
 }
 
-#swap-button {
+.swap-button {
   background-color: transparent;
   color: #aa4442;
   font-size: 1.5em;
@@ -91,7 +93,7 @@ button:hover {
   margin: 0 10px;
 }
 
-#result {
+.result {
   margin-top: 20px;
   font-size: 1.2em;
 }

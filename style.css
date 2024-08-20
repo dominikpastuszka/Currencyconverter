@@ -19,7 +19,7 @@ body {
   text-align: center;
 }
 
-header {
+.header {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,13 +32,13 @@ header {
   margin-bottom: 10px;
 }
 
-.title {
+h1 {
   font-size: 1.8em;
   margin: 0;
-  color: #aa4442;
+  color: #61dafb;
 }
 
-.converter {
+main {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,14 +52,14 @@ header {
   margin: 15px 0;
 }
 
-.label {
+label {
   flex: 1;
   text-align: left;
   font-weight: 500;
 }
 
-.currency-select,
-.amount-input {
+select,
+input {
   flex: 2;
   padding: 10px;
   border-radius: 5px;
@@ -68,10 +68,9 @@ header {
   color: #f1f1f1;
 }
 
-.convert-button,
-.swap-button {
-  background-color: #aa4442;
-  color: white;
+button {
+  background-color: #61dafb;
+  color: #282c34;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
@@ -80,20 +79,19 @@ header {
   transition: background-color 0.3s ease;
 }
 
-.convert-button:hover,
-.swap-button:hover {
+button:hover {
   background-color: #21a1f1;
 }
 
-.swap-button {
+#swap-button {
   background-color: transparent;
-  color: #aa4442;
+  color: #61dafb;
   font-size: 1.5em;
   padding: 0;
   margin: 0 10px;
 }
 
-.result {
+#result {
   margin-top: 20px;
   font-size: 1.2em;
 }

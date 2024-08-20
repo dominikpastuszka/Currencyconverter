@@ -1,78 +1,81 @@
-document.querySelector(".swap-button").addEventListener("click", function () {
-  const currency1 = document.querySelector(
-    '.currency-select[name="currency1"]'
-  );
-  const currency2 = document.querySelector(
-    '.currency-select[name="currency2"]'
-  );
+const fromCurrency = document.getElementById("fromCurrency");
+const toCurrency = document.getElementById("toCurrency");
+const amount = document.getElementById("amount");
+const loader = document.getElementById("loader");
+const resultDiv = document.getElementById("result");
 
-  const temp = currency1.value;
-  currency1.value = currency2.value;
-  currency2.value = temp;
+document.getElementById("swap-button").addEventListener("click", function () {
+  const temp = fromCurrency.value;
+  fromCurrency.value = toCurrency.value;
+  toCurrency.value = temp;
 });
 
 document
-  .querySelector(".currency-form")
+  .getElementById("currency-form")
   .addEventListener("submit", function (event) {
     event.preventDefault();
-
-    const loader = document.querySelector(".loader");
-    const resultDiv = document.querySelector(".result");
-    const currency1 = document.querySelector(
-      '.currency-select[name="currency1"]'
-    ).value;
-    const currency2 = document.querySelector(
-      '.currency-select[name="currency2"]'
-    ).value;
-    const amount = parseFloat(document.querySelector(".amount-input").value);
 
     loader.style.display = "block";
     resultDiv.innerHTML = "";
 
-    if (currency1 === currency2) {
+    if (fromCurrency.value === toCurrency.value) {
       loader.style.display = "none";
       resultDiv.innerHTML = "Waluty są identyczne. Wybierz różne waluty.";
       return;
     }
 
-    let url = `https://api.nbp.pl/api/exchangerates/rates/a/${currency1}/?format=json`;
+    let url = `https://api.nbp.pl/api/exchangerates/rates/a/${fromCurrency.value}/?format=json`;
 
-    if (currency1 === "pln") {
-      url = `https://api.nbp.pl/api/exchangerates/rates/a/${currency2}/?format=json`;
+    if (fromCurrency.value === "pln") {
+      url = `https://api.nbp.pl/api/exchangerates/rates/a/${toCurrency.value}/?format=json`;
     }
 
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
+        const mid = data?.rates?.[0]?.mid;
+
+        if (!mid) {
+          resultDiv.innerHTML = "Wystąpił problem z przeliczeniem waluty.";
+          return;
+        }
+
         let rate;
 
-        if (currency1 === "pln") {
-          rate = 1 / data.rates[0].mid;
-        } else if (currency2 === "pln") {
-          rate = data.rates[0].mid;
+        if (fromCurrency.value === "pln") {
+          rate = 1 / mid;
+        } else if (toCurrency.value === "pln") {
+          rate = mid;
         } else {
-          rate = data.rates[0].mid;
+          rate = mid;
           return fetch(
-            `https://api.nbp.pl/api/exchangerates/rates/a/${currency2}/?format=json`
+            `https://api.nbp.pl/api/exchangerates/rates/a/${toCurrency.value}/?format=json`
           )
             .then((response) => response.json())
             .then((data2) => {
-              const rate2 = data2.rates[0].mid;
-              return rate / rate2;
+              const mid2 = data2?.rates?.[0]?.mid;
+              if (!mid2) {
+                resultDiv.innerHTML =
+                  "Wystąpił problem z przeliczeniem waluty.";
+                return;
+              }
+              return rate / mid2;
             });
         }
 
         return rate;
       })
       .then((finalRate) => {
-        const result = (amount * finalRate).toFixed(2);
-
-        loader.style.display = "none";
-        resultDiv.innerHTML = `Wynik: <strong>${result} ${currency2.toUpperCase()}</strong>`;
+        if (finalRate) {
+          const result = (amount.value * finalRate).toFixed(2);
+          resultDiv.innerHTML = `Wynik: <strong>${result} ${toCurrency.value.toUpperCase()}</strong>`;
+        }
       })
       .catch((error) => {
-        loader.style.display = "none";
         resultDiv.innerHTML = "Wystąpił błąd podczas pobierania danych.";
         console.error("Error fetching data:", error);
+      })
+      .finally(() => {
+        loader.style.display = "none";
       });
   });
